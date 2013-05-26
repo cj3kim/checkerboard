@@ -11,15 +11,9 @@ describe("Backbone Checkerboard Setter", function () {
 
   describe("#template", function () {
     it("returns a form template", function () {
-      var template = _.template("<form id='chckerboard'> \
-          Horizontal Tiles: <input type='text' name='horizontal-tiles'><br> \
-          Vertical Tile: <input type='text' name='vertical-tiles'> <br> \
-          <input type='submit' value='Submit'> \
-        </form>"
-      );
+      underscoreTemplate = _.template(Templates.Checkerboard.form)();
 
-      expect(setter.template).toEqual(template);
-
+      expect(setter.template()).toEqual(underscoreTemplate);
     });
   });
   
