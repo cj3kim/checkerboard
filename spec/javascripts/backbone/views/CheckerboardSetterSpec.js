@@ -11,6 +11,11 @@ describe("Backbone Checkerboard Setter", function () {
       expect(setter.template()).toEqual(underscoreTemplate);
     });
   });
-  
+
+  describe("#renderNewCheckerboard", function () {
+    it("creates a new checkerboard for the user", function () {
+    });
+  });
 });
+
 

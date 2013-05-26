@@ -3,6 +3,10 @@ var CheckerboardSetter = Backbone.View.extend({
     this.render();
   },
 
+  events: {
+    "submit #checkerboard-form": "renderNewCheckerboard"
+  },
+
   el: "#checkerboard-settings",
 
   template: _.template(Templates.Checkerboard.form),
