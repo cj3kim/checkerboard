@@ -1,3 +1,20 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tile {
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+
+#checkerboard {
+  width: 0px;
+  height: 500px;
+}
+
+#checkerboard-settings {
+  width: 500px;
+  height: 200px;
+  margin: 0px 0px 20px 0px;
+}
