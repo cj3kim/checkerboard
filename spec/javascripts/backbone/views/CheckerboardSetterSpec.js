@@ -1,6 +1,7 @@
 describe("Backbone Checkerboard Setter", function () {
 
   beforeEach(function () {
+    loadFixtures("home.html");
     setter = new CheckerboardSetter();
   });
 
@@ -13,16 +14,32 @@ describe("Backbone Checkerboard Setter", function () {
   });
 
   describe("#renderNewCheckerboard", function () {
+    beforeEach( function () {
+      fakeCheckerboard = jasmine.createSpy("Checkerboard");
+      horizontalTiles = 5;
+      verticalTiles = 5;
+
+      horizontalTileTextInputValue = $("input:text[name=horizontalTiles]").val(horizontalTiles);
+      verticalTileTextInputValue = $("input:text[name=verticalTiles]").val(verticalTiles);
+
+      hash = { horizontalTiles: horizontalTiles, verticalTiles: verticalTiles };
+      $form = $("#checkerboard-form");
+      event = $.Event('submit');
+    });
+
     it("creates a new checkerboard for the user", function () {
 
-      //expect(setter.subject).toEqual(new Checkerboard());
+      spyOn(window, "Checkerboard").andReturn(fakeCheckerboard);
 
-      //gets form inputs
-      //sets a checkerboard property on the CheckerboardSetter object
+      $form.trigger(event);
+
+      expect(Checkerboard).toHaveBeenCalledWith(hash);
+      expect(setter.checkerboard).toBe(fakeCheckerboard);
+      expect(event.isDefaultPrevented()).toBe(true);
     });
   });
 
-  describe("#getFormInputs", function ()   {
+  describe("#getFormTextInputValues", function ()   {
     it("caches the text input values into a hash", function () {
       loadFixtures("form.html");
 

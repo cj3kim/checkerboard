@@ -18,6 +18,8 @@ var CheckerboardSetter = Backbone.View.extend({
 
   renderNewCheckerboard: function (e) {
     e.preventDefault();
+    var formTextInputsValues = this.getFormTextInputValues("#checkerboard-form");
+    this.checkerboard = new Checkerboard(formTextInputsValues);
   },
 
   getFormTextInputValues: function (formId) {
