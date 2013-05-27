@@ -28,12 +28,26 @@ describe("Backbone Checkerboard Setter", function () {
       var horizontalTileTextInputValue = $("input:text[name=horizontalTiles]").val(horizontalTiles);
       var verticalTileTextInputValue = $("input:text[name=verticalTiles]").val(verticalTiles);
 
-      var hash = setter.getFormTextInputValues();
-
-      expect(hash).toBe({
+      var hash = setter.getFormTextInputValues("#checkerboard-form");
+      var expectedHash = {
         horizontalTiles: horizontalTiles, 
         verticalTiles: verticalTiles
-      });
+      };
+
+      expect(hash).toEqual(expectedHash);
+
+      horizontalTiles = 4;
+      verticalTiles = 5;
+      horizontalTileTextInputValue = $("input:text[name=horizontalTiles]").val(horizontalTiles);
+      verticalTileTextInputValue = $("input:text[name=verticalTiles]").val(verticalTiles);
+
+      hash = setter.getFormTextInputValues("#checkerboard-form");
+      expectedHash = {
+        horizontalTiles: horizontalTiles, 
+        verticalTiles: verticalTiles
+      };
+
+      expect(hash).toEqual(expectedHash);
     });
   });
 });

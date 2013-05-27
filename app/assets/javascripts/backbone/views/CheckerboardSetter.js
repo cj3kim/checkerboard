@@ -19,12 +19,16 @@ var CheckerboardSetter = Backbone.View.extend({
   renderNewCheckerboard: function () {
   },
 
-  getFormTextInputValues: function (e) {
-    e.preventDefault();
-    var $form = $(e.target);
+  getFormTextInputValues: function (formId) {
+    var $form = $(formId);
     var queryString = $form.serialize();
-    //need a query string parser
-  }
+    var textInputValuesHash = URI.parseQuery(queryString);
 
+    _.each(textInputValuesHash, function (value, key, hash) {
+      hash[key] = parseInt(value);
+    });
+
+    return textInputValuesHash;
+  }
 
 });
