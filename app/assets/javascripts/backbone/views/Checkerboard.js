@@ -21,6 +21,15 @@ var Checkerboard = Backbone.View.extend({
   },
 
   generateCheckerboard: function () {
+    var self, tileCount;
+    self = this;
+
+    self.$el.empty();
+    for(var index in this.tiles) {
+      var tile = $(self.tileTemplate());
+
+      self.$el.append(tile);
+    }
   },
 
   setBoardWidth: function(horizontalTiles) {
@@ -35,7 +44,7 @@ var Checkerboard = Backbone.View.extend({
     this.render();
   },
 
-  loadTileMatrix: function (horizontalTiles, verticalTiles, matrix) {
+  loadTileMatrix: function (horizontalTiles, verticalTiles) {
     var totalTiles = horizontalTiles * verticalTiles;
 
     for(var i = 1; i <= totalTiles; i++) {

@@ -37,26 +37,22 @@ describe("Checkerboard", function () {
       var newCheckerboard, horizontalTiles, verticalTiles, tileCount;
 
       newCheckerboard = new Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
+      newCheckerboard.generateCheckerboard();
       tileCount = $("#checkerboard > .tile").size();
 
       expect(tileCount).toBe(20);
 
-      horizontalTiles = 3;
-      verticalTiles = 2;
-
-      newCheckerboard.generateCheckerboard(horizontalTiles, verticalTiles);
-      tileCount = $("#checkerboard > .tile").size(); //Counts the tile children of #checkerboard
-
-      expect(tileCount).toBe(6);
-
-      horizontalTiles = 5;
-      verticalTiles = 5;
-
-      newCheckerboard.generateCheckerboard(horizontalTiles, verticalTiles);
+      newCheckerboard = new Checkerboard({ horizontalTiles: 5, verticalTiles: 5 });
+      newCheckerboard.generateCheckerboard();
       tileCount = $("#checkerboard > .tile").size();
 
       expect(tileCount).toBe(25);
 
+      newCheckerboard = new Checkerboard({ horizontalTiles: 6, verticalTiles: 5 });
+      newCheckerboard.generateCheckerboard();
+      tileCount = $("#checkerboard > .tile").size();
+
+      expect(tileCount).toBe(30);
     });
   });
 
