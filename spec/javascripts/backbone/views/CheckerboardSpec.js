@@ -34,6 +34,13 @@ describe("Checkerboard", function () {
 
   describe("#generateCheckerboard", function () {
     it("generates an html/css representation of the tiles matrix", function () {
+      var newCheckerboard = new Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
+
+      newCheckerboard.generateCheckerboard();
+
+      var tileCount = $("#checkerboard > .tile").size();
+
+      expect(tileCount).toBe(20);
     });
   });
 
