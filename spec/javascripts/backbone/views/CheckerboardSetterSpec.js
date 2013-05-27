@@ -14,6 +14,9 @@ describe("Backbone Checkerboard Setter", function () {
 
   describe("#renderNewCheckerboard", function () {
     it("creates a new checkerboard for the user", function () {
+
+      //expect(setter.subject).toEqual(new Checkerboard());
+
       //gets form inputs
       //sets a checkerboard property on the CheckerboardSetter object
     });
@@ -50,6 +53,23 @@ describe("Backbone Checkerboard Setter", function () {
       expect(hash).toEqual(expectedHash);
     });
   });
+
+  describe("#changeHashValuesIntoIntegerType", function () {
+    it("changes the strings into integers in a javascript object", function () {
+      var hash = {a: "12", b: "13" };
+
+      expect(setter.changeHashValuesIntoIntegerType(hash)).toEqual({
+        a: 12, b: 13
+      });
+
+      hash = {a: "18", b: "9" };
+
+      expect(setter.changeHashValuesIntoIntegerType(hash)).toEqual({
+        a: 18, b: 9
+      });
+    });
+  });
+
 });
 
 

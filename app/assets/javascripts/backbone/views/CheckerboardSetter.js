@@ -16,19 +16,23 @@ var CheckerboardSetter = Backbone.View.extend({
     return this;
   },
 
-  renderNewCheckerboard: function () {
+  renderNewCheckerboard: function (e) {
+    e.preventDefault();
   },
 
   getFormTextInputValues: function (formId) {
     var $form = $(formId);
     var queryString = $form.serialize();
     var textInputValuesHash = URI.parseQuery(queryString);
+    var integerInputValuesHash = this.changeHashValuesIntoIntegerType(textInputValuesHash);
 
-    _.each(textInputValuesHash, function (value, key, hash) {
-      hash[key] = parseInt(value);
+    return integerInputValuesHash;
+  },
+
+  changeHashValuesIntoIntegerType: function (hash) {
+    _.each(hash, function (v, k, h) {
+      h[k] = parseInt(v);
     });
-
-    return textInputValuesHash;
+    return hash;
   }
-
 });
