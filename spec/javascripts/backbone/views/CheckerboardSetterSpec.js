@@ -14,6 +14,21 @@ describe("Backbone Checkerboard Setter", function () {
 
   describe("#renderNewCheckerboard", function () {
     it("creates a new checkerboard for the user", function () {
+      //gets form inputs
+      //sets a checkerboard property on the CheckerboardSetter object
+    });
+  });
+
+  describe("#getFormInputs", function ()   {
+    it("caches the text input values into a hash", function () {
+      loadFixtures("form.html");
+      var horizontalTiles = 3;
+      var verticalTiles = 3;
+
+      expect(setter.getFormInputs()).toBe({
+        horizontalTiles: horizontalTiles, 
+        verticalTiles: verticalTiles
+      });
     });
   });
 });
