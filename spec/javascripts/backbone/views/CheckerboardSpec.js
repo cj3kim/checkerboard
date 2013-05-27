@@ -1,12 +1,14 @@
 describe("Checkerboard", function () {
   beforeEach(function () {
-    board = new Checkerboard();
+    var horizontalTiles = 4;
+    var verticalTiles = 5;
+    board = new Checkerboard({horizontalTiles: horizontalTiles, verticalTiles: verticalTiles});
   });
 
-  describe("#initialize", function(){
+  describe("#initialize", function() {
     it("should have horizonal and vertical tile counts", function () {
-      expect(board.horizontalTiles).toEqual(3)
-      expect(board.verticalTiles).toEqual(4)
+      expect(board.horizontalTiles).toEqual(4);
+      expect(board.verticalTiles).toEqual(5);
     });
   });
 
