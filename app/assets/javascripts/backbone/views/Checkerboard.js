@@ -21,7 +21,6 @@ var Checkerboard = Backbone.View.extend({
   },
 
   generateCheckerboard: function () {
-    
   },
 
   setBoardWidth: function(horizontalTiles) {
