@@ -21,6 +21,10 @@ var CheckerboardSetter = Backbone.View.extend({
 
   getFormTextInputValues: function (e) {
     e.preventDefault();
+    var $form = $(e.target);
+    var queryString = $form.serialize();
+    //need a query string parser
   }
+
 
 });
