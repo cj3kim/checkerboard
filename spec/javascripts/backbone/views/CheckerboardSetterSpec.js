@@ -3,6 +3,15 @@ describe("Backbone Checkerboard Setter", function () {
   beforeEach(function () {
     loadFixtures("home.html");
     setter = new CheckerboardSetter();
+
+    setFormInputValues = function setTiles(hTiles, vTiles) {
+      $("input:text[name=horizontalTiles]").val(hTiles);
+      $("input:text[name=verticalTiles]").val(vTiles);
+    };
+
+    generateExpectedHash = function (hTiles, vTiles) {
+      return { horizontalTiles: hTiles, verticalTiles: vTiles };
+    };
   });
 
   describe("#template", function () {
@@ -14,76 +23,76 @@ describe("Backbone Checkerboard Setter", function () {
   });
 
   describe("#renderNewCheckerboard", function () {
-    beforeEach( function () {
+    it("creates a new checkerboard for the user", function () {
+      var fakeCheckerboard, horizontalTiles, verticalTiles,
+      expectedFormInputsHash, $form, event;
+
       fakeCheckerboard = jasmine.createSpy("Checkerboard");
-      horizontalTiles = 5;
-      verticalTiles = 5;
+      spyOn(window, "Checkerboard").andReturn(fakeCheckerboard);
 
-      horizontalTileTextInputValue = $("input:text[name=horizontalTiles]").val(horizontalTiles);
-      verticalTileTextInputValue = $("input:text[name=verticalTiles]").val(verticalTiles);
-
-      hash = { horizontalTiles: horizontalTiles, verticalTiles: verticalTiles };
       $form = $("#checkerboard-form");
       event = $.Event('submit');
-    });
 
-    it("creates a new checkerboard for the user", function () {
-
-      spyOn(window, "Checkerboard").andReturn(fakeCheckerboard);
+      horizontalTiles = 5;
+      verticalTiles = 5;
+      setFormInputValues(horizontalTiles, verticalTiles);
+      expectedFormInputsHash = generateExpectedHash(horizontalTiles, verticalTiles);
 
       $form.trigger(event);
 
-      expect(Checkerboard).toHaveBeenCalledWith(hash);
+      expect(Checkerboard).toHaveBeenCalledWith(expectedFormInputsHash);
       expect(setter.checkerboard).toBe(fakeCheckerboard);
       expect(event.isDefaultPrevented()).toBe(true);
+
+
+      horizontalTiles = 3;
+      verticalTiles = 7;
+      setFormInputValues(horizontalTiles, verticalTiles);
+      expectedFormInputsHash = generateExpectedHash(horizontalTiles, verticalTiles);
+
+      $form.trigger(event);
+
+      expect(Checkerboard).toHaveBeenCalledWith(expectedFormInputsHash);
+      expect(setter.checkerboard).toBe(fakeCheckerboard);
+      expect(event.isDefaultPrevented()).toBe(true);
+
     });
   });
 
   describe("#getFormTextInputValues", function ()   {
+
     it("caches the text input values into a hash", function () {
-      loadFixtures("form.html");
+      var horizontalTiles, verticalTiles, formInputsHash, expectedFormInputsHash;
 
-      var horizontalTiles = 3;
-      var verticalTiles = 3;
-      var horizontalTileTextInputValue = $("input:text[name=horizontalTiles]").val(horizontalTiles);
-      var verticalTileTextInputValue = $("input:text[name=verticalTiles]").val(verticalTiles);
+      horizontalTiles = 3;
+      verticalTiles = 3;
+      setFormInputValues(horizontalTiles, verticalTiles);
+      expectedFormInputsHash = generateExpectedHash(horizontalTiles, verticalTiles)
+      formInputsHash = setter.getFormTextInputValues("#checkerboard-form");
 
-      var hash = setter.getFormTextInputValues("#checkerboard-form");
-      var expectedHash = {
-        horizontalTiles: horizontalTiles, 
-        verticalTiles: verticalTiles
-      };
+      expect(formInputsHash).toEqual(expectedFormInputsHash);
 
-      expect(hash).toEqual(expectedHash);
+      horizontalTiles = 5;
+      verticalTiles = 7;
+      setFormInputValues(horizontalTiles, verticalTiles);
+      formInputsHash = setter.getFormTextInputValues("#checkerboard-form");
+      expectedFormInputsHash = generateExpectedHash(horizontalTiles, verticalTiles)
 
-      horizontalTiles = 4;
-      verticalTiles = 5;
-      horizontalTileTextInputValue = $("input:text[name=horizontalTiles]").val(horizontalTiles);
-      verticalTileTextInputValue = $("input:text[name=verticalTiles]").val(verticalTiles);
-
-      hash = setter.getFormTextInputValues("#checkerboard-form");
-      expectedHash = {
-        horizontalTiles: horizontalTiles, 
-        verticalTiles: verticalTiles
-      };
-
-      expect(hash).toEqual(expectedHash);
+      expect(formInputsHash).toEqual(expectedFormInputsHash);
     });
   });
 
   describe("#changeHashValuesIntoIntegerType", function () {
     it("changes the strings into integers in a javascript object", function () {
       var hash = {a: "12", b: "13" };
+      var expectedHash = { a: 12, b: 13 };
 
-      expect(setter.changeHashValuesIntoIntegerType(hash)).toEqual({
-        a: 12, b: 13
-      });
+      expect(setter.changeHashValuesIntoIntegerType(hash)).toEqual(expectedHash);
 
       hash = {a: "18", b: "9" };
+      var expectedHash = { a: 18, b: 9 };
 
-      expect(setter.changeHashValuesIntoIntegerType(hash)).toEqual({
-        a: 18, b: 9
-      });
+      expect(setter.changeHashValuesIntoIntegerType(hash)).toEqual(expectedHash);
     });
   });
 
