@@ -47,25 +47,32 @@ describe("Checkerboard", function () {
   describe("#setBoardWidth", function () {
 
     it("sets the board to the appropriate width in pixels", function () {
-      var newCheckerboard = new Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
-      var $checkerboard = $("#checkerboard");
-      var expectedWidth = 200
+      var setBoardWidth, $checkerboard, expectedWidth, horizontalTiles;
 
-      newCheckerboard.setBoardWidth();
+      $checkerboard = $("#checkerboard");
+
+      newCheckerboard = new Checkerboard({horizontalTiles: 2, verticalTiles: 2});
+
+      expectedWidth = 100;
+      horizontalTiles = 2;
+
+      newCheckerboard.setBoardWidth(horizontalTiles);
+
+      expect($checkerboard.width()).toBe(expectedWidth);
+
+      expectedWidth = 200;
+      horizontalTiles = 4;
+      newCheckerboard.setBoardWidth(horizontalTiles);
 
       expect($checkerboard.width()).toBe(expectedWidth);
 
-      newCheckerboard.horizontalTiles = 5;
-      expectedWidth = 250;
-      newCheckerboard.setBoardWidth();
+      expectedWidth = 300;
+      horizontalTiles = 6;
+      newCheckerboard.setBoardWidth(horizontalTiles);
 
       expect($checkerboard.width()).toBe(expectedWidth);
 
-      newCheckerboard.horizontalTiles = 7;
-      expectedWidth = 350;
-      newCheckerboard.setBoardWidth();
 
-      expect($checkerboard.width()).toBe(expectedWidth);
     });
   });
 
