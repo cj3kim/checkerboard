@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require underscore
 //= require ./backbone/backbone.js
+//= require_tree ./checkerboard
 //= require_tree .
