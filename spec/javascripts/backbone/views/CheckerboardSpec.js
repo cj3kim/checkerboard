@@ -24,6 +24,10 @@ describe("Checkerboard", function () {
       expect(newCheckerboard.setBoardWidth).toHaveBeenCalled();
       expect(newCheckerboard.clearAndRenderBoard).toHaveBeenCalled();
     });
+
+    it("should load the tiles array with Tile objects", function () {
+
+    });
   });
 
   describe("#setBoardWidth", function () {
@@ -46,6 +50,17 @@ describe("Checkerboard", function () {
       board.setBoardWidth();
 
       expect($checkerboard.width()).toBe(expectedWidth);
+    });
+  });
+
+  describe("#loadTileMatrix", function () {
+    it("should load the tiles property with tile objects", function () {
+      var totalTiles;
+      totalTiles = board.horizontalTiles * board.verticalTiles
+
+      board.loadTileMatrix();
+
+      expect(board.tiles.length).toEqual(totalTiles);
     });
   });
 
