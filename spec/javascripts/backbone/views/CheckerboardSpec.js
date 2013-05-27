@@ -32,6 +32,11 @@ describe("Checkerboard", function () {
     });
   });
 
+  describe("#generateCheckerboard", function () {
+    it("generates an html/css representation of the tiles matrix", function () {
+    });
+  });
+
   describe("#setBoardWidth", function () {
 
     it("sets the board to the appropriate width in pixels", function () {
