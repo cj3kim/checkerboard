@@ -6,7 +6,7 @@ var Checkerboard = Backbone.View.extend({
     this.tiles = [];
 
     this.setBoardWidth()
-    this.clearAndRerenderBoard()
+    this.clearAndRenderBoard()
   },
 
   el: "#checkerboard", 
@@ -20,8 +20,8 @@ var Checkerboard = Backbone.View.extend({
 
     this.$el.css("width", totalBoardWidth + "px");
   },
-  
-  clearAndRerenderBoard: function () {
+
+  clearAndRenderBoard: function () {
     this.$el.empty()
     this.render();
   }
