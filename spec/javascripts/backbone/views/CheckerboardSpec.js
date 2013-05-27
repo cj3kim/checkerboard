@@ -2,18 +2,27 @@ describe("Checkerboard", function () {
   beforeEach(function () {
     loadFixtures("home.html");
 
-    var horizontalTiles = 4;
-    var verticalTiles = 5;
     board = new Checkerboard({
-      horizontalTiles: horizontalTiles, 
-      verticalTiles: verticalTiles
+      horizontalTiles: 4, 
+      verticalTiles: 5
     });
   });
 
   describe("#initialize", function() {
-    it("should have horizonal and vertical tile counts", function () {
+    it("should have the appropriate properties", function () {
       expect(board.horizontalTiles).toEqual(4);
       expect(board.verticalTiles).toEqual(5);
+      expect(board.tiles).toEqual(new Array());
+    });
+
+    it("should set the board width and render it", function () {
+      spyOn(Checkerboard.prototype, "setBoardWidth");
+      spyOn(Checkerboard.prototype, "clearAndRenderBoard");
+
+      var newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+
+      expect(newCheckerboard.setBoardWidth).toHaveBeenCalled();
+      expect(newCheckerboard.clearAndRenderBoard).toHaveBeenCalled();
     });
   });
 
