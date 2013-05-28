@@ -8,6 +8,10 @@
   float: left;
 }
 
+.tile-background-color {
+  background-color: green;
+}
+
 #checkerboard {
   width: 0px;
   height: 0px;
@@ -23,3 +27,4 @@
   background-image: url("/assets/x-mark.png");
   background-size: 100%;
 }
+

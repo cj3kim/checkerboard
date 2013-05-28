@@ -14,12 +14,10 @@ describe("Checkerboard", function () {
 
     it("should set the width of board and render it", function () {
       spyOn(Checkerboard.prototype, "setBoardWidth");
-      spyOn(Checkerboard.prototype, "clearAndRenderBoard");
 
       var newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
       expect(newCheckerboard.setBoardWidth).toHaveBeenCalled();
-      expect(newCheckerboard.clearAndRenderBoard).toHaveBeenCalled();
     });
 
     it("should load tiles into the tiles property", function () {
@@ -34,32 +32,39 @@ describe("Checkerboard", function () {
 
   describe("#generateCheckerboard", function () {
     it("generates an html/css representation of the tiles matrix", function () {
-      var newCheckerboard, horizontalTiles, verticalTiles, tileCount;
+      var newCheckerboard, horizontalTiles, verticalTiles, tileCount, coloredTileCount;
 
       newCheckerboard = new Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
       newCheckerboard.generateCheckerboard();
+
       tileCount = $("#checkerboard > .tile").size();
+      coloredTileCount = $("#checkerboard > .tile-background-color").size();
 
       expect(tileCount).toBe(20);
+      expect(coloredTileCount).toBe(10)
 
       newCheckerboard = new Checkerboard({ horizontalTiles: 5, verticalTiles: 5 });
       newCheckerboard.generateCheckerboard();
       tileCount = $("#checkerboard > .tile").size();
+      coloredTileCount = $("#checkerboard > .tile-background-color").size();
 
       expect(tileCount).toBe(25);
+      expect(coloredTileCount).toBe(13)
 
       newCheckerboard = new Checkerboard({ horizontalTiles: 6, verticalTiles: 5 });
       newCheckerboard.generateCheckerboard();
       tileCount = $("#checkerboard > .tile").size();
+      coloredTileCount = $("#checkerboard > .tile-background-color").size();
 
       expect(tileCount).toBe(30);
+      expect(coloredTileCount).toBe(15)
     });
   });
 
   describe("#setBoardWidth", function () {
 
     it("sets the board to the appropriate width in pixels", function () {
-      var setBoardWidth, $checkerboard, expectedWidth, horizontalTiles;
+      var setBoardWidth, $checkerboard, expectedWidth, horizontalTiles, coloredTileCount;
 
       $checkerboard = $("#checkerboard");
 
@@ -83,7 +88,6 @@ describe("Checkerboard", function () {
       newCheckerboard.setBoardWidth(horizontalTiles);
 
       expect($checkerboard.width()).toBe(expectedWidth);
-
 
     });
   });

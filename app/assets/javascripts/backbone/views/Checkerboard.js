@@ -7,7 +7,7 @@ var Checkerboard = Backbone.View.extend({
 
     this.loadTileMatrix(this.horizontalTiles, this.verticalTiles);
     this.setBoardWidth(this.horizontalTiles);
-    this.clearAndRenderBoard();
+    this.render();
   },
 
   el: "#checkerboard", 
@@ -18,21 +18,28 @@ var Checkerboard = Backbone.View.extend({
     //insert html/css tiles into the dom checkerboard
     //base the insertion on color
     //Color switches every other tile. 
+    this.generateCheckerboard();
   },
 
   generateCheckerboard: function () {
     var self, tileCount, booleanColorOption;
     self = this;
-    booleanColorOption = 1;
+    booleanColorOption = 0;
 
     self.$el.empty();
     for(var index in this.tiles) {
       var domTile, currentTileCount;
+      currentTileCount = parseInt(index) + 1;
 
-      currentTileCount = index + 1;
       domTile = $(self.tileTemplate());
-
+      domTile = self.colorElement(domTile, booleanColorOption);
       self.$el.append(domTile);
+
+      if (currentTileCount % self.horizontalTiles === 0 && self.horizontalTiles % 2 === 0 ) {
+        booleanColorOption--;
+      } else {
+        booleanColorOption++;
+      }
     }
   },
 
@@ -43,11 +50,6 @@ var Checkerboard = Backbone.View.extend({
     this.$el.css("width", totalBoardWidth + "px");
   },
 
-  clearAndRenderBoard: function () {
-    this.$el.empty()
-    this.render();
-  },
-
   loadTileMatrix: function (horizontalTiles, verticalTiles) {
     var totalTiles = horizontalTiles * verticalTiles;
 
@@ -56,12 +58,13 @@ var Checkerboard = Backbone.View.extend({
     }
   },
 
-  colorElement: function (domElement, colorOption) {
+  colorElement: function ($domElement, colorOption) {
     if ( colorOption % 2 === 0 ) {
-      domElement.addClass("tile-background-color");
+      $domElement.addClass("tile-background-color");
     }
-    return domElement;
+    return $domElement;
   }
+
 
 });
 
