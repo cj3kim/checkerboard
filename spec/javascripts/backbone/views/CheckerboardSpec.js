@@ -130,6 +130,19 @@ describe("Checkerboard", function () {
       expect(arrayLength).toBe(25);
 
     });
+
+    it("should load an xMark object into the first tile of the tile matrix", function () {
+      var newCheckerboard, firstTile, xMark, expectXmark;
+      newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+      firstTile = newCheckerboard.tiles[0]
+      xMark = firstTile.subject
+      expectXmark = new XMark();
+      expectXmark.coordinate = 0;
+
+      expect(xMark).toEqual(expectXmark);
+      expect(firstTile.subject).toBe(xMark);
+
+    });
   });
 
   describe("#colorElement", function () {
@@ -157,9 +170,6 @@ describe("Checkerboard", function () {
       $processedTile = colorElement($tile, colorOption);
 
       expect($tile.hasClass(colorClass)).toBe(true)
-
-
-
     });
   });
 });

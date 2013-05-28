@@ -57,6 +57,11 @@ var Checkerboard = Backbone.View.extend({
     for(var i = 1; i <= totalTiles; i++) {
       this.tiles.push(new Tile());
     }
+
+    firstTile = this.tiles[0];
+    xMark = new XMark();
+    xMark.coordinate = 0;
+    firstTile.subject = xMark
   },
 
   colorElement: function ($domElement, colorOption) {
