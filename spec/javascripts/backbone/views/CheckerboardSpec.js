@@ -133,6 +133,7 @@ describe("Checkerboard", function () {
 
     it("should load an xMark object into the first tile of the tile matrix", function () {
       var newCheckerboard, firstTile, xMark, expectXmark;
+
       newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
       firstTile = newCheckerboard.tiles[0]
       xMark = firstTile.subject
@@ -169,7 +170,22 @@ describe("Checkerboard", function () {
       colorOption = 4; 
       $processedTile = colorElement($tile, colorOption);
 
-      expect($tile.hasClass(colorClass)).toBe(true)
+      expect($tile.hasClass(colorClass)).toBe(true);
+    });
+  });
+
+  describe("#assignXmark", function () {
+    it("assigns a xMark object as a checkerboard property", function () {
+      var newCheckerboard;
+      newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+
+      newCheckerboard.assignXmark(tile, xMark);
+
+      expect(tile.subject).toBe(xMark);
+      expect(xmark.coordinate).toBe(tile.coordinate);
+      expect(newCheckerboard.xMark).toBe(xMark);
+
+
     });
   });
 
