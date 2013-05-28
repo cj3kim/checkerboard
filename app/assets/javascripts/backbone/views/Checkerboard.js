@@ -13,6 +13,10 @@ var Checkerboard = Backbone.View.extend({
 
   el: "#checkerboard", 
 
+  event: {
+    "click #x-mark"     :    "moveXmark"
+  };
+
   tileTemplate: _.template("<div class='tile'></div>"),
 
   render: function () {
@@ -59,15 +63,13 @@ var Checkerboard = Backbone.View.extend({
 
     for(var i = 0; i < totalTiles; i++) {
       var tile = new Tile();
-      var tile.coordinate = i;
-      this.tiles.push(new Tile());
+      tile.coordinate = i;
+      this.tiles.push(tile);
     }
 
     firstTile = this.tiles[0];
     xMark = new XMark();
-    xMark.coordinate = 0;
-    this.xMark = xMark;
-    firstTile.subject = xMark;
+    this.assignXmark(firstTile, xMark);
   },
 
   colorElement: function ($domElement, colorOption) {
@@ -86,6 +88,15 @@ var Checkerboard = Backbone.View.extend({
     if (tile.subject instanceof XMark) { $domTile.attr("id", "x-mark") };
 
     return $domTile;
+  },
+
+  assignXmark: function (tile, xMark) {
+    tile.subject = xMark;
+    xMark.coordinate = tile.coordinate;
+    this.xMark = xMark;
+  },
+
+  moveXmark: function () {
   }
 
 });

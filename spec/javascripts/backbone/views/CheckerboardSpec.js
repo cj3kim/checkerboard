@@ -112,6 +112,7 @@ describe("Checkerboard", function () {
       expect(lastTile instanceof Tile).toBe(true);
       expect(lastTileIndex).toBe(5);
       expect(arrayLength).toBe(6);
+      expect(firstTile.coordinate).toBe(0);
 
       newCheckerboard = new Checkerboard({horizontalTiles: 5, verticalTiles: 5});
 
@@ -128,6 +129,7 @@ describe("Checkerboard", function () {
       expect(lastTile instanceof Tile).toBe(true);
       expect(lastTileIndex).toBe(24);
       expect(arrayLength).toBe(25);
+      expect(firstTile.coordinate).toBe(0);
 
     });
 
@@ -176,17 +178,22 @@ describe("Checkerboard", function () {
 
   describe("#assignXmark", function () {
     it("assigns a xMark object as a checkerboard property", function () {
-      var newCheckerboard;
+      var newCheckerboard, tile, xMark;
       newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
-      newCheckerboard.assignXmark(tile, xMark);
+      firstTile = newCheckerboard.tiles[0];
+      xMark = new XMark();
 
-      expect(tile.subject).toBe(xMark);
-      expect(xmark.coordinate).toBe(tile.coordinate);
+      newCheckerboard.assignXmark(firstTile, xMark);
+
+      expect(firstTile.subject).toBe(xMark);
       expect(newCheckerboard.xMark).toBe(xMark);
-
-
+      expect(xMark.coordinate).toBe(firstTile.coordinate);
     });
   });
 
+  describe("#moveXmark", function () {
+    it("moves the x-mark around the board based on key input", function () {
+    });
+  });
 });
