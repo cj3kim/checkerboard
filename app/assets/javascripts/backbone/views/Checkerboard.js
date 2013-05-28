@@ -33,13 +33,14 @@ var Checkerboard = Backbone.View.extend({
 
       domTile = $(self.tileTemplate());
       domTile = self.colorElement(domTile, booleanColorOption);
+
       self.$el.append(domTile);
 
-      if (currentTileCount % self.horizontalTiles === 0 && self.horizontalTiles % 2 === 0 ) {
-        booleanColorOption--;
-      } else {
+      //This if logic determines whether the first tile on the next row is 
+      //the same color as the last tile on the previous row.
+      if (!(currentTileCount % self.horizontalTiles === 0 && self.horizontalTiles % 2 === 0)) {
         booleanColorOption++;
-      }
+      } 
     }
   },
 
@@ -64,7 +65,6 @@ var Checkerboard = Backbone.View.extend({
     }
     return $domElement;
   }
-
 
 });
 
