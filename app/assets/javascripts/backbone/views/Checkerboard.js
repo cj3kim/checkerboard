@@ -7,7 +7,7 @@ var Checkerboard = Backbone.View.extend({
     this.xMark = null;
 
     this.loadTileMatrix(this.horizontalTiles, this.verticalTiles);
-    this.setBoardWidth(this.horizontalTiles);
+    this.setBoardWidthAndHeight(this.horizontalTiles, this.verticalTiles);
     this.render();
   },
 
@@ -49,11 +49,14 @@ var Checkerboard = Backbone.View.extend({
     });
   },
 
-  setBoardWidth: function(horizontalTiles) {
-    var tilePixelWidth = 50;
-    var totalBoardWidth = horizontalTiles * tilePixelWidth;
+  setBoardWidthAndHeight: function(horizontalTiles, verticalTiles) {
+    var tilePixelWidth, totalBoardWidth, totalBoardHeight;
+    tilePixelWidth = 50;
+    totalBoardWidth = horizontalTiles * tilePixelWidth;
+    totalBoardHeight = verticalTiles * tilePixelWidth;
 
     this.$el.css("width", totalBoardWidth + "px");
+    this.$el.css("height", totalBoardHeight + "px");
   },
 
   loadTileMatrix: function (horizontalTiles, verticalTiles) {

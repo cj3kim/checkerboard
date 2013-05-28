@@ -13,11 +13,11 @@ describe("Checkerboard", function () {
     });
 
     it("should set the width of board and render it", function () {
-      spyOn(Checkerboard.prototype, "setBoardWidth");
+      spyOn(Checkerboard.prototype, "setBoardWidthAndHeight");
 
       var newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
-      expect(newCheckerboard.setBoardWidth).toHaveBeenCalled();
+      expect(newCheckerboard.setBoardWidthAndHeight).toHaveBeenCalled();
     });
 
     it("should load tiles into the tiles property", function () {
@@ -61,7 +61,7 @@ describe("Checkerboard", function () {
     });
   });
 
-  describe("#setBoardWidth", function () {
+  describe("#setBoardWidthAndHeight", function () {
 
     it("sets the board to the appropriate width in pixels", function () {
       var setBoardWidth, $checkerboard, expectedWidth, horizontalTiles, coloredTileCount;
@@ -71,24 +71,24 @@ describe("Checkerboard", function () {
       newCheckerboard = new Checkerboard({horizontalTiles: 2, verticalTiles: 2});
 
       expectedWidth = 100;
+      expectedHeight = 100;
       horizontalTiles = 2;
+      verticalTiles = 2;
 
-      newCheckerboard.setBoardWidth(horizontalTiles);
-
-      expect($checkerboard.width()).toBe(expectedWidth);
-
-      expectedWidth = 200;
-      horizontalTiles = 4;
-      newCheckerboard.setBoardWidth(horizontalTiles);
+      newCheckerboard.setBoardWidthAndHeight(horizontalTiles, verticalTiles);
 
       expect($checkerboard.width()).toBe(expectedWidth);
+      expect($checkerboard.height()).toBe(expectedHeight);
 
-      expectedWidth = 300;
-      horizontalTiles = 6;
-      newCheckerboard.setBoardWidth(horizontalTiles);
+      expectedWidth = 150;
+      expectedHeight = 200;
+      horizontalTiles = 3;
+      verticalTiles = 4;
+
+      newCheckerboard.setBoardWidthAndHeight(horizontalTiles, verticalTiles);
 
       expect($checkerboard.width()).toBe(expectedWidth);
-
+      expect($checkerboard.height()).toBe(expectedHeight);
     });
   });
 
