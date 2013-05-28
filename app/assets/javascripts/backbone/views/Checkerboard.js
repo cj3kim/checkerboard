@@ -21,14 +21,18 @@ var Checkerboard = Backbone.View.extend({
   },
 
   generateCheckerboard: function () {
-    var self, tileCount;
+    var self, tileCount, booleanColorOption;
     self = this;
+    booleanColorOption = 1;
 
     self.$el.empty();
     for(var index in this.tiles) {
-      var tile = $(self.tileTemplate());
+      var domTile, currentTileCount;
 
-      self.$el.append(tile);
+      currentTileCount = index + 1;
+      domTile = $(self.tileTemplate());
+
+      self.$el.append(domTile);
     }
   },
 
@@ -52,9 +56,9 @@ var Checkerboard = Backbone.View.extend({
     }
   },
 
-  colorElement: function (colorOption, domElement) {
+  colorElement: function (domElement, colorOption) {
     if ( colorOption % 2 === 0 ) {
-      domElement.css("background-color", "green");
+      domElement.addClass("tile-background-color");
     }
     return domElement;
   }

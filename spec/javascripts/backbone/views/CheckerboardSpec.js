@@ -128,4 +128,34 @@ describe("Checkerboard", function () {
     });
   });
 
+  describe("#colorElement", function () {
+    it("colors an element based on a color option", function () {
+      var $tile, colorElement, colorOption, $processedTile, colorClass;
+
+      colorElement = Checkerboard.prototype.colorElement;
+      colorClass = "tile-background-color";
+
+      $tile = $("<div class='tile'></div>");
+      colorOption = 2; 
+      $processedTile = colorElement($tile, colorOption);
+
+      expect($tile.hasClass(colorClass)).toBe(true);
+
+
+      $tile = $("<div class='tile'></div>");
+      colorOption = 3; 
+      $processedTile = colorElement($tile, colorOption);
+
+      expect($tile.hasClass(colorClass)).toBe(false);
+
+      $tile = $("<div class='tile'></div>");
+      colorOption = 4; 
+      $processedTile = colorElement($tile, colorOption);
+
+      expect($tile.hasClass(colorClass)).toBe(true)
+
+
+
+    });
+  });
 });
