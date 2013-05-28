@@ -70,7 +70,7 @@ var Checkerboard = Backbone.View.extend({
     }
 
     firstTile = this.tiles[0];
-    xMark = new XMark();
+    xMark = new Xmark();
     this.assignXmark(firstTile, xMark);
   },
 
@@ -87,7 +87,7 @@ var Checkerboard = Backbone.View.extend({
     $tileTemplate = $(this.tileTemplate());
     $domTile = this.colorElement($tileTemplate, colorOption);
 
-    if (tile.subject instanceof XMark) { 
+    if (tile.subject instanceof Xmark) { 
       $domTile.attr("id", "x-mark") 
       $domTile.data("coordinate", tile.coordinate);
     };

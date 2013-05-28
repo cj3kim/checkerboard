@@ -139,7 +139,7 @@ describe("Checkerboard", function () {
       newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
       firstTile = newCheckerboard.tiles[0]
       xMark = firstTile.subject
-      expectXmark = new XMark();
+      expectXmark = new Xmark();
       expectXmark.coordinate = 0;
 
       expect(xMark).toEqual(expectXmark);
@@ -182,7 +182,7 @@ describe("Checkerboard", function () {
       newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
       firstTile = newCheckerboard.tiles[0];
-      xMark = new XMark();
+      xMark = new Xmark();
 
       newCheckerboard.assignXmark(firstTile, xMark);
 
