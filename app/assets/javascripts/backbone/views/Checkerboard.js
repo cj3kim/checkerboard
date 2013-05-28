@@ -22,19 +22,20 @@ var Checkerboard = Backbone.View.extend({
   },
 
   generateCheckerboard: function () {
-    var self, tileCount, booleanColorOption;
+    var self, tileCount, booleanColorOption, tileMatrix;
     self = this;
     booleanColorOption = 0;
+    tileMatrix = this.tiles;
 
     self.$el.empty();
-    for(var index in this.tiles) {
-      var domTile, currentTileCount;
+    for(var index in tileMatrix) {
+      var $domTile, tile, currentTileCount;
+
+      tile = tileMatrix[index];
       currentTileCount = parseInt(index) + 1;
 
-      domTile = $(self.tileTemplate());
-      domTile = self.colorElement(domTile, booleanColorOption);
-
-      self.$el.append(domTile);
+      $domTile = self.generateDomTile(tile, booleanColorOption);
+      self.$el.append($domTile);
 
       //This if logic determines whether the first tile on the next row is 
       //the same color as the last tile on the previous row.
@@ -52,7 +53,8 @@ var Checkerboard = Backbone.View.extend({
   },
 
   loadTileMatrix: function (horizontalTiles, verticalTiles) {
-    var totalTiles = horizontalTiles * verticalTiles;
+    var firstTile, xMark, totalTiles;
+    totalTiles = horizontalTiles * verticalTiles;
 
     for(var i = 1; i <= totalTiles; i++) {
       this.tiles.push(new Tile());
@@ -61,7 +63,7 @@ var Checkerboard = Backbone.View.extend({
     firstTile = this.tiles[0];
     xMark = new XMark();
     xMark.coordinate = 0;
-    firstTile.subject = xMark
+    firstTile.subject = xMark;
   },
 
   colorElement: function ($domElement, colorOption) {
@@ -69,6 +71,17 @@ var Checkerboard = Backbone.View.extend({
       $domElement.addClass("tile-background-color");
     }
     return $domElement;
+  },
+
+  generateDomTile: function (tile, colorOption) {
+    var $domTile, $tileTemplate;
+
+    $tileTemplate = $(this.tileTemplate());
+    $domTile = this.colorElement($tileTemplate, colorOption);
+
+    if (tile.subject instanceof XMark) { $domTile.attr("id", "x-mark") };
+
+    return $domTile;
   }
 
 });

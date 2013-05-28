@@ -172,4 +172,5 @@ describe("Checkerboard", function () {
       expect($tile.hasClass(colorClass)).toBe(true)
     });
   });
+
 });
