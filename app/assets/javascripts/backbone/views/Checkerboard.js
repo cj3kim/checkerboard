@@ -13,16 +13,9 @@ var Checkerboard = Backbone.View.extend({
 
   el: "#checkerboard", 
 
-  event: {
-    "click #x-mark"     :    "moveXmark"
-  };
-
   tileTemplate: _.template("<div class='tile'></div>"),
 
   render: function () {
-    //insert html/css tiles into the dom checkerboard
-    //base the insertion on color
-    //Color switches every other tile. 
     this.generateCheckerboard();
   },
 
@@ -46,8 +39,14 @@ var Checkerboard = Backbone.View.extend({
       //the same color as the last tile on the previous row.
       if (!(currentTileCount % self.horizontalTiles === 0 && self.horizontalTiles % 2 === 0)) {
         booleanColorOption++;
-      } 
+      }
     }
+
+    $(document).on("keydown", function (e) {
+      self.processKeydown(e);
+      $(this).off();
+      self.generateCheckerboard();
+    });
   },
 
   setBoardWidth: function(horizontalTiles) {
@@ -85,7 +84,10 @@ var Checkerboard = Backbone.View.extend({
     $tileTemplate = $(this.tileTemplate());
     $domTile = this.colorElement($tileTemplate, colorOption);
 
-    if (tile.subject instanceof XMark) { $domTile.attr("id", "x-mark") };
+    if (tile.subject instanceof XMark) { 
+      $domTile.attr("id", "x-mark") 
+      $domTile.data("coordinate", tile.coordinate);
+    };
 
     return $domTile;
   },
@@ -96,7 +98,59 @@ var Checkerboard = Backbone.View.extend({
     this.xMark = xMark;
   },
 
-  moveXmark: function () {
+  processKeydown: function (e) {
+    var movement, self;
+    self = this;
+
+    switch(e.keyCode) {
+      case 37:
+        movement = -1;
+        self.moveXmark(movement);
+        break;
+      case 38:
+        movement = -(self.horizontalTiles);
+        self.moveXmark(movement);
+        break;
+      case 39:
+        movement = 1;
+        self.moveXmark(movement);
+        break;
+      case 40:
+        movement = self.horizontalTiles;
+        self.moveXmark(movement);
+        break;
+    };
+  },
+
+  moveXmark: function (movement) {
+    var xMark,xMarkCoordinate, totalTiles,
+        currentTile, currentCoordinate, currentTileCoordinate,
+        potentialTile, potentialCoordinate, potentialTileCoordinate;
+
+    totalTiles = this.horizontalTiles * this.verticalTiles
+    xMark = this.xMark;
+    xMarkCoordinate = parseInt(xMark.coordinate);
+
+    currentTileCoordinate = xMarkCoordinate;
+    currentTile = this.tiles[currentTileCoordinate];
+
+    potentialTileCoordinate = xMarkCoordinate + movement;
+    potentialTile = this.tiles[potentialTileCoordinate];
+
+    currentCoordinate = currentTileCoordinate + 1;
+    potentialCoordinate = potentialTileCoordinate + 1;
+
+
+    if (currentCoordinate % this.horizontalTiles === 0 && (currentCoordinate + 1) % potentialCoordinate === 0) {
+      console.log("going further right is an illegal move");
+    } else if ( currentCoordinate > potentialCoordinate && potentialCoordinate  % ( currentCoordinate - 1) == 0 && potentialCoordinate % this.horizontalTiles == 0) {
+      console.log("going further left is an illegal move");
+    } else if ( potentialCoordinate < 1 || potentialCoordinate > totalTiles ) {
+      console.log("illegal move");
+    } else {
+      currentTile.subject = null;
+      this.assignXmark(potentialTile, xMark);
+    }
   }
 
 });

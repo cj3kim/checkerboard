@@ -191,9 +191,4 @@ describe("Checkerboard", function () {
       expect(xMark.coordinate).toBe(firstTile.coordinate);
     });
   });
-
-  describe("#moveXmark", function () {
-    it("moves the x-mark around the board based on key input", function () {
-    });
-  });
 });
