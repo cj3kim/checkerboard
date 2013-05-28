@@ -140,9 +140,12 @@ var Checkerboard = Backbone.View.extend({
     potentialTileCoordinate = xMarkCoordinate + movement;
     potentialTile = this.tiles[potentialTileCoordinate];
 
+    //the variables belows exist for convenience when doing modulus operations
+    //in movement logic
     currentCoordinate = currentTileCoordinate + 1;
     potentialCoordinate = potentialTileCoordinate + 1;
 
+    //logic to deal with legal and illegal moves
 
     if (currentCoordinate % this.horizontalTiles === 0 && (currentCoordinate + 1) % potentialCoordinate === 0) {
       console.log("going further right is an illegal move");
