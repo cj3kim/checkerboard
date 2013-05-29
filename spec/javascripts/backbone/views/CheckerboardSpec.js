@@ -210,6 +210,23 @@ describe("Checkerboard", function () {
           checkerboard.moveXmark(moveSpace);
           expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
         }
+
+        testCoordinateChange = function testCoordinateChange(movement, coordinateAry, checkerboard) {
+          var moveSpace = movement;
+          var expectedCoordinate = coordinateAry[0];
+
+          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = coordinateAry[1]
+          checkerboard.moveXmark(moveSpace);
+
+          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = coordinateAry[2]
+          checkerboard.moveXmark(moveSpace);
+
+          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+        }
       });
 
       describe("when it is on the first tile of the first row", function () {
@@ -227,36 +244,25 @@ describe("Checkerboard", function () {
 
         it("can move right", function () {
           moveRightOneSpace = 1;
-          expectedCoordinate = 0;
+          expectedCoordinateAry = [0,1,2];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveRightOneSpace, expectedCoordinateAry, newCheckerboard);
 
-          expectedCoordinate = 1;
-          newCheckerboard.moveXmark(moveRightOneSpace);
+          expectedCoordinateAry = [2,3,4];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveRightOneSpace, expectedCoordinateAry, newCheckerboard);
 
-          expectedCoordinate = 2;
-          newCheckerboard.moveXmark(moveRightOneSpace);
-
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
 
         it("can move down", function () {
           moveDownOneSpace = newCheckerboard.horizontalTiles;
-          expectedCoordinate = 0;
+          expectedCoordinateAry = [0, 10, 20];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveDownOneSpace, expectedCoordinateAry, newCheckerboard);
 
-          expectedCoordinate = 10;
-          newCheckerboard.moveXmark(moveDownOneSpace);
+          expectedCoordinateAry = [20, 30, 40];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
-
-          expectedCoordinate = 20;
-          newCheckerboard.moveXmark(moveDownOneSpace);
-
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveDownOneSpace, expectedCoordinateAry, newCheckerboard);
         });
       });
 
@@ -281,19 +287,13 @@ describe("Checkerboard", function () {
 
         it("can move left", function () {
           moveLeftOneSpace = -1;
-          expectedCoordinate = 99;
+          expectedCoordinateAry = [99, 98, 97];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveLeftOneSpace, expectedCoordinateAry, newCheckerboard);
 
-          expectedCoordinate = 98;
-          newCheckerboard.moveXmark(moveLeftOneSpace);
+          expectedCoordinateAry = [97, 96, 95];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
-
-          expectedCoordinate = 97;
-          newCheckerboard.moveXmark(moveLeftOneSpace);
-
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveLeftOneSpace, expectedCoordinateAry, newCheckerboard);
         });
 
         it("can't move down", function () {
@@ -305,19 +305,14 @@ describe("Checkerboard", function () {
 
         it("can move up", function () {
           moveUpOneSpace = -(newCheckerboard.horizontalTiles);
-          expectedCoordinate = 99;
+          expectedCoordinateAry = [99,89,79];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveUpOneSpace, expectedCoordinateAry, newCheckerboard);
 
-          newCheckerboard.moveXmark(moveUpOneSpace);
-          expectedCoordinate = 89;
+          expectedCoordinateAry = [79,69,59];
 
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          testCoordinateChange(moveUpOneSpace, expectedCoordinateAry, newCheckerboard);
 
-          expectedCoordinate = 79;
-          newCheckerboard.moveXmark(moveUpOneSpace);
-
-          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
 
       });
