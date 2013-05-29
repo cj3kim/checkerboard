@@ -1,6 +1,4 @@
-APP.CheckerboardSetter = CheckerboardSetter || {};
-
-var CheckerboardSetter = Backbone.View.extend({
+APP.CheckerboardSetter = Backbone.View.extend({
   initialize: function () {
     this.render();
   },
@@ -21,7 +19,7 @@ var CheckerboardSetter = Backbone.View.extend({
   renderNewCheckerboard: function (e) {
     e.preventDefault();
     var formTextInputsValues = this.getFormTextInputValues("#checkerboard-form");
-    this.checkerboard = new Checkerboard(formTextInputsValues);
+    this.checkerboard = new APP.Checkerboard(formTextInputsValues);
   },
 
   getFormTextInputValues: function (formId) {

@@ -1,6 +1,4 @@
-APP.Tile = Tile || {};
-
-var Tile = function Tile() {
+APP.Tile = function Tile() {
   this.subject = null;
   this.coordinate = null;
 }

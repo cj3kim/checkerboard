@@ -2,7 +2,7 @@ describe("Backbone Checkerboard Setter", function () {
 
   beforeEach(function () {
     loadFixtures("home.html");
-    setter = new CheckerboardSetter();
+    setter = new APP.CheckerboardSetter();
 
     setFormInputValues = function setTiles(hTiles, vTiles) {
       $("input:text[name=horizontalTiles]").val(hTiles);
@@ -28,7 +28,7 @@ describe("Backbone Checkerboard Setter", function () {
       expectedFormInputsHash, $form, event;
 
       fakeCheckerboard = jasmine.createSpy("Checkerboard");
-      spyOn(window, "Checkerboard").andReturn(fakeCheckerboard);
+      spyOn(window.APP, "Checkerboard").andReturn(fakeCheckerboard);
 
       $form = $("#checkerboard-form");
       event = $.Event('submit');
@@ -40,7 +40,7 @@ describe("Backbone Checkerboard Setter", function () {
 
       $form.trigger(event);
 
-      expect(Checkerboard).toHaveBeenCalledWith(expectedFormInputsHash);
+      expect(APP.Checkerboard).toHaveBeenCalledWith(expectedFormInputsHash);
       expect(setter.checkerboard).toBe(fakeCheckerboard);
       expect(event.isDefaultPrevented()).toBe(true);
 
@@ -52,7 +52,7 @@ describe("Backbone Checkerboard Setter", function () {
 
       $form.trigger(event);
 
-      expect(Checkerboard).toHaveBeenCalledWith(expectedFormInputsHash);
+      expect(APP.Checkerboard).toHaveBeenCalledWith(expectedFormInputsHash);
       expect(setter.checkerboard).toBe(fakeCheckerboard);
       expect(event.isDefaultPrevented()).toBe(true);
 

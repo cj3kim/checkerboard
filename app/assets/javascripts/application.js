@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require underscore
-//= require ./AppVariables.js
 //= require ./backbone/backbone.js
+//= require ./AppVariables.js
 //= require_tree ./checkerboard
+//= require_tree ./backbone
 //= require_tree .

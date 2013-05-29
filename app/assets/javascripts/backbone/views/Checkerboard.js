@@ -1,6 +1,4 @@
-APP.Checkerboard = Checkerboard || {};
-
-var Checkerboard = Backbone.View.extend({
+APP.Checkerboard = Backbone.View.extend({
   initialize: function () {
     var options = this.options;
     this.horizontalTiles = options.horizontalTiles
@@ -66,13 +64,13 @@ var Checkerboard = Backbone.View.extend({
     totalTiles = horizontalTiles * verticalTiles;
 
     for(var i = 0; i < totalTiles; i++) {
-      var tile = new Tile();
+      var tile = new APP.Tile();
       tile.coordinate = i;
       this.tiles.push(tile);
     }
 
     firstTile = this.tiles[0];
-    xMark = new Xmark();
+    xMark = new APP.Xmark();
     this.assignXmark(firstTile, xMark);
   },
 
@@ -89,7 +87,7 @@ var Checkerboard = Backbone.View.extend({
     $tileTemplate = $(this.tileTemplate());
     $domTile = this.colorElement($tileTemplate, colorOption);
 
-    if (tile.subject instanceof Xmark) { 
+    if (tile.subject instanceof APP.Xmark) { 
       $domTile.attr("id", "x-mark") 
       $domTile.data("coordinate", tile.coordinate);
     };

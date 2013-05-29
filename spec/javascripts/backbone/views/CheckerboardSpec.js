@@ -5,7 +5,7 @@ describe("Checkerboard", function () {
 
   describe("#initialize", function() {
     it("should have the appropriate properties", function () {
-      var newCheckerboard = new Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
+      var newCheckerboard = new APP.Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
 
       expect(newCheckerboard.horizontalTiles).toEqual(4);
       expect(newCheckerboard.verticalTiles).toEqual(5);
@@ -13,17 +13,17 @@ describe("Checkerboard", function () {
     });
 
     it("should set the width of board and render it", function () {
-      spyOn(Checkerboard.prototype, "setBoardWidthAndHeight");
+      spyOn(APP.Checkerboard.prototype, "setBoardWidthAndHeight");
 
-      var newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+      var newCheckerboard = new APP.Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
       expect(newCheckerboard.setBoardWidthAndHeight).toHaveBeenCalled();
     });
 
     it("should load tiles into the tiles property", function () {
-      spyOn(Checkerboard.prototype, "loadTileMatrix");
+      spyOn(APP.Checkerboard.prototype, "loadTileMatrix");
 
-      var newCheckerboard = new Checkerboard({horizontalTiles: 8, verticalTiles: 3});
+      var newCheckerboard = new APP.Checkerboard({horizontalTiles: 8, verticalTiles: 3});
 
       expect(newCheckerboard.loadTileMatrix).toHaveBeenCalled();
 
@@ -34,7 +34,7 @@ describe("Checkerboard", function () {
     it("generates an html/css representation of the tiles matrix", function () {
       var newCheckerboard, horizontalTiles, verticalTiles, tileCount, coloredTileCount;
 
-      newCheckerboard = new Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
+      newCheckerboard = new APP.Checkerboard({ horizontalTiles: 4, verticalTiles: 5 });
       newCheckerboard.generateCheckerboard();
 
       tileCount = $("#checkerboard > .tile").size();
@@ -43,7 +43,7 @@ describe("Checkerboard", function () {
       expect(tileCount).toBe(20);
       expect(coloredTileCount).toBe(10)
 
-      newCheckerboard = new Checkerboard({ horizontalTiles: 5, verticalTiles: 5 });
+      newCheckerboard = new APP.Checkerboard({ horizontalTiles: 5, verticalTiles: 5 });
       newCheckerboard.generateCheckerboard();
       tileCount = $("#checkerboard > .tile").size();
       coloredTileCount = $("#checkerboard > .tile-background-color").size();
@@ -51,7 +51,7 @@ describe("Checkerboard", function () {
       expect(tileCount).toBe(25);
       expect(coloredTileCount).toBe(13)
 
-      newCheckerboard = new Checkerboard({ horizontalTiles: 6, verticalTiles: 5 });
+      newCheckerboard = new APP.Checkerboard({ horizontalTiles: 6, verticalTiles: 5 });
       newCheckerboard.generateCheckerboard();
       tileCount = $("#checkerboard > .tile").size();
       coloredTileCount = $("#checkerboard > .tile-background-color").size();
@@ -68,7 +68,7 @@ describe("Checkerboard", function () {
 
       $checkerboard = $("#checkerboard");
 
-      newCheckerboard = new Checkerboard({horizontalTiles: 2, verticalTiles: 2});
+      newCheckerboard = new APP.Checkerboard({horizontalTiles: 2, verticalTiles: 2});
 
       expectedWidth = 100;
       expectedHeight = 100;
@@ -97,7 +97,7 @@ describe("Checkerboard", function () {
       var totalTiles, firstTile, lastTile, 
           lastTileIndex, arrayLength,newCheckerboard;
 
-      newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+      newCheckerboard = new APP.Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
       totalTiles = newCheckerboard.horizontalTiles * newCheckerboard.verticalTiles
       arrayLength = newCheckerboard.tiles.length;
@@ -108,13 +108,13 @@ describe("Checkerboard", function () {
 
 
       expect(arrayLength).toEqual(totalTiles);
-      expect(firstTile instanceof Tile).toBe(true);
-      expect(lastTile instanceof Tile).toBe(true);
+      expect(firstTile instanceof APP.Tile).toBe(true);
+      expect(lastTile instanceof APP.Tile).toBe(true);
       expect(lastTileIndex).toBe(5);
       expect(arrayLength).toBe(6);
       expect(firstTile.coordinate).toBe(0);
 
-      newCheckerboard = new Checkerboard({horizontalTiles: 5, verticalTiles: 5});
+      newCheckerboard = new APP.Checkerboard({horizontalTiles: 5, verticalTiles: 5});
 
       totalTiles = newCheckerboard.horizontalTiles * newCheckerboard.verticalTiles
       arrayLength = newCheckerboard.tiles.length;
@@ -125,8 +125,8 @@ describe("Checkerboard", function () {
 
 
       expect(arrayLength).toEqual(totalTiles);
-      expect(firstTile instanceof Tile).toBe(true);
-      expect(lastTile instanceof Tile).toBe(true);
+      expect(firstTile instanceof APP.Tile).toBe(true);
+      expect(lastTile instanceof APP.Tile).toBe(true);
       expect(lastTileIndex).toBe(24);
       expect(arrayLength).toBe(25);
       expect(firstTile.coordinate).toBe(0);
@@ -136,10 +136,10 @@ describe("Checkerboard", function () {
     it("should load an xMark object into the first tile of the tile matrix", function () {
       var newCheckerboard, firstTile, xMark, expectXmark;
 
-      newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+      newCheckerboard = new APP.Checkerboard({horizontalTiles: 3, verticalTiles: 2});
       firstTile = newCheckerboard.tiles[0]
       xMark = firstTile.subject
-      expectXmark = new Xmark();
+      expectXmark = new APP.Xmark();
       expectXmark.coordinate = 0;
 
       expect(xMark).toEqual(expectXmark);
@@ -152,7 +152,7 @@ describe("Checkerboard", function () {
     it("colors an element based on a color option", function () {
       var $tile, colorElement, colorOption, $processedTile, colorClass;
 
-      colorElement = Checkerboard.prototype.colorElement;
+      colorElement = APP.Checkerboard.prototype.colorElement;
       colorClass = "tile-background-color";
 
       $tile = $("<div class='tile'></div>");
@@ -179,10 +179,10 @@ describe("Checkerboard", function () {
   describe("#assignXmark", function () {
     it("assigns a xMark object as a checkerboard property", function () {
       var newCheckerboard, tile, xMark;
-      newCheckerboard = new Checkerboard({horizontalTiles: 3, verticalTiles: 2});
+      newCheckerboard = new APP.Checkerboard({horizontalTiles: 3, verticalTiles: 2});
 
       firstTile = newCheckerboard.tiles[0];
-      xMark = new Xmark();
+      xMark = new APP.Xmark();
 
       newCheckerboard.assignXmark(firstTile, xMark);
 

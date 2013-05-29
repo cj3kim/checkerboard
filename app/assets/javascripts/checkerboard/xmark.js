@@ -1,6 +1,4 @@
-APP.Xmark = Xmark || {};
-
-var Xmark = function Xmark() {
+APP.Xmark = function Xmark() {
   this.info = "I'm an X-mark";
   this.coordinate = null; //index of tiles array
 }
