@@ -147,7 +147,9 @@ APP.Checkerboard = Backbone.View.extend({
 
     //logic to deal with legal and illegal moves
 
-    if (currentCoordinate % this.horizontalTiles === 0 && (currentCoordinate + 1) % potentialCoordinate === 0) {
+    if (currentCoordinate % this.horizontalTiles === 0 
+        && (currentCoordinate + 1) % potentialCoordinate === 0 
+        && currentCoordinate < potentialCoordinate)  {
       console.log("going further right is an illegal move");
     } else if ( currentCoordinate > potentialCoordinate && potentialCoordinate  % ( currentCoordinate - 1) == 0 && potentialCoordinate % this.horizontalTiles == 0) {
       console.log("going further left is an illegal move");
