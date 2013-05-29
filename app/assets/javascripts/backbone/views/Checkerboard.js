@@ -1,3 +1,5 @@
+APP.Checkerboard = Checkerboard || {};
+
 var Checkerboard = Backbone.View.extend({
   initialize: function () {
     var options = this.options;

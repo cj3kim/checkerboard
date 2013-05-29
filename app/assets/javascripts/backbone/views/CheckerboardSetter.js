@@ -1,3 +1,5 @@
+APP.CheckerboardSetter = CheckerboardSetter || {};
+
 var CheckerboardSetter = Backbone.View.extend({
   initialize: function () {
     this.render();
