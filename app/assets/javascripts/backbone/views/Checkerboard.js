@@ -144,6 +144,8 @@ APP.Checkerboard = Backbone.View.extend({
     //in movement logic
     currentCoordinate = currentTileCoordinate + 1;
     potentialCoordinate = potentialTileCoordinate + 1;
+    console.log("current coordinate: " + currentCoordinate);
+    console.log("potential coordinate: " + potentialCoordinate);
 
     //logic to deal with legal and illegal moves
 
