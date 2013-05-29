@@ -193,19 +193,50 @@ describe("Checkerboard", function () {
   });
 
   describe("#moveXmark", function () {
-    describe("when it is on the first tile of a row", function () {
-      it("can't move further left", function () {
+    describe("when the checkerboard dimensions >= 2x2", function () {
+      var moveLeftOneSpace, moveRightOneSpace, expectedCoordinate;
+      beforeEach(function () {
+        newCheckerboard = new APP.Checkerboard({horizontalTiles: 10, verticalTiles: 10})
       });
 
-      it("can move right", function () {
-      });
-    });
+      describe("when it is on the first tile of a row", function () {
+        it("can't move further left", function () {
 
-    describe("when it is on the last tile of a row", function () {
-      it("can't move further right", function () {
+          moveLeftOneSpace = -1;
+          expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
+
+        it("can move right", function () {
+          moveRightOneSpace = 1;
+
+          expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 1;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 2;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
       });
 
-      it("can move left", function () {
+      describe("when it is on the last tile of a row", function () {
+        it("can't move further right", function () {
+        });
+
+        it("can move left", function () {
+        });
       });
     });
 
