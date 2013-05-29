@@ -213,19 +213,16 @@ describe("Checkerboard", function () {
 
         testCoordinateChange = function testCoordinateChange(movement, coordinateAry, checkerboard) {
           var moveSpace = movement;
-          var expectedCoordinate = coordinateAry[0];
+          var expectedCoordinate = coordinateAry.shift();
 
           expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
 
-          expectedCoordinate = coordinateAry[1]
-          checkerboard.moveXmark(moveSpace);
+          _.each(coordinateAry, function (elem, index, ary) {
+            expectedCoordinate = ary[index];
+            checkerboard.moveXmark(moveSpace);
 
-          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
-
-          expectedCoordinate = coordinateAry[2]
-          checkerboard.moveXmark(moveSpace);
-
-          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+            expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+          });
         }
       });
 
