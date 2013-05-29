@@ -197,13 +197,32 @@ describe("Checkerboard", function () {
       var moveLeftOneSpace, moveRightOneSpace, expectedCoordinate;
       beforeEach(function () {
         newCheckerboard = new APP.Checkerboard({horizontalTiles: 10, verticalTiles: 10})
+
+        testMovement = function testMovement(movement, checkerboard) {
+          var moveSpace = movement;
+          var expectedCoordinate = 0;
+
+          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          checkerboard.moveXmark(moveSpace);
+
+          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          checkerboard.moveXmark(moveSpace);
+
+          expect(checkerboard.xMark.coordinate).toBe(expectedCoordinate);
+        }
       });
 
-      describe("when it is on the first tile of a row", function () {
+      describe("when it is on the first tile of the first row", function () {
         it("can't move further left", function () {
-
           moveLeftOneSpace = -1;
+          testMovement(moveLeftOneSpace, newCheckerboard);
           expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveLeftOneSpace);
 
           expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
 
@@ -212,9 +231,25 @@ describe("Checkerboard", function () {
           expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
 
+        it("can't move up", function () {
+          moveUpOneSpace = -(newCheckerboard.horizontalTiles); // Should be 10 
+          expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 0;
+          newCheckerboard.moveXmark(moveUpOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 0;
+          newCheckerboard.moveXmark(moveUpOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
+
         it("can move right", function () {
           moveRightOneSpace = 1;
-
           expectedCoordinate = 0;
 
           expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
@@ -229,38 +264,253 @@ describe("Checkerboard", function () {
 
           expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
+
+        it("can move down", function () {
+          moveDownOneSpace = newCheckerboard.horizontalTiles;
+          expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 10;
+          newCheckerboard.moveXmark(moveDownOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 20;
+          newCheckerboard.moveXmark(moveDownOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
       });
 
       describe("when it is on the last tile of a row", function () {
+        beforeEach(function () {
+          xMark = newCheckerboard.xMark;
+          xMarkCoordinate = xMark.coordinate;
+          currentTile = newCheckerboard.tiles[xMarkCoordinate];
+          currentTile.subject = null;
+          lastIndex = newCheckerboard.tiles.length - 1;
+          lastTile = newCheckerboard.tiles[lastIndex];
+          lastTile.subject = xMark;
+          xMark.coordinate = lastTile.coordinate;
+        });
+
         it("can't move further right", function () {
+
+          moveRightOneSpace = 1;
+          expectedCoordinate = 99;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
 
         it("can move left", function () {
+          moveLeftOneSpace = -1;
+          expectedCoordinate = 99;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 98;
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 97;
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
+
+        it("can't move down", function () {
+          moveDownOneSpace = newCheckerboard.horizontalTiles; // Should be 10 
+          expectedCoordinate = 99;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveDownOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveDownOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
+
+        it("can move up", function () {
+          moveUpOneSpace = -(newCheckerboard.horizontalTiles);
+          expectedCoordinate = 99;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveUpOneSpace);
+          expectedCoordinate = 89;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 79;
+          newCheckerboard.moveXmark(moveUpOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
+
       });
     });
 
     describe("when the checkerboard is only one horizontal line", function () {
+      beforeEach(function () {
+        newCheckerboard = new APP.Checkerboard({horizontalTiles: 3, verticalTiles: 1});
+      });
+
+      it("can't move up or down", function () {
+        moveUpOneSpace = -(newCheckerboard.horizontalTiles);
+        moveDownOneSpace = newCheckerboard.horizontalTiles;
+
+        expectedCoordinate = 0;
+
+        expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+        newCheckerboard.moveXmark(moveUpOneSpace);
+
+        expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+        newCheckerboard.moveXmark(moveDownOneSpace);
+
+        expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+      });
+
 
       describe("when it is on the first tile", function () {
         it("can't move further left", function () {
+          moveLeftOneSpace = -1;
+          expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
 
         it("can move right", function () {
+          moveRightOneSpace = 1;
+          expectedCoordinate = 0;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 1;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 2;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
+
       });
 
       describe("when it is on the last tile", function () {
+        beforeEach(function () {
+          lastIndex = newCheckerboard.tiles.length - 1;
+          newCheckerboard.tiles[0].subject = null;
+          newCheckerboard.tiles[lastIndex].subject = newCheckerboard.xMark;
+          newCheckerboard.xMark.coordinate = lastIndex;
+        });
+
         it("can't move further right", function () {
+          moveRightOneSpace = 1;
+          expectedCoordinate = 2;
+          unexpectedCoordinate = 3;
+
+          newCheckerboard.moveXmark(moveRightOneSpace);
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          expect(newCheckerboard.xMark.coordinate).not.toBe(unexpectedCoordinate);
+
+          expectedCoordinate = 2;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+          expect(newCheckerboard.xMark.coordinate).not.toBe(unexpectedCoordinate);
+
+          expectedCoordinate = 2;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
         });
 
         it("can move left", function () {
+          moveLeftOneSpace = -1;
+          expectedCoordinate = 2;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 1;
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 0;
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
         });
       });
 
       describe("when it is in the middle", function () {
-        it("can move left and right", function () {
+        beforeEach(function () {
+          middleIndex = 1; //based on newCheckerboard.tile which is [0, 1, 2]
+          newCheckerboard.tiles[0].subject = null;
+          newCheckerboard.tiles[middleIndex].subject = newCheckerboard.xMark;
+          newCheckerboard.xMark.coordinate = middleIndex;
         });
+
+        it("can move left", function () {
+          moveLeftOneSpace = -1;
+          expectedCoordinate = 1;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 0;
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 0;
+          newCheckerboard.moveXmark(moveLeftOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
+
+        it("can move right", function () {
+          moveRightOneSpace = 1
+          expectedCoordinate = 1;
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 2;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+
+          expectedCoordinate = 2;
+          newCheckerboard.moveXmark(moveRightOneSpace);
+
+          expect(newCheckerboard.xMark.coordinate).toBe(expectedCoordinate);
+        });
+
       });
 
     });
