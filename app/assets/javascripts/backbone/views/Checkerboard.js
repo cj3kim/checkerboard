@@ -134,6 +134,7 @@ APP.Checkerboard = Backbone.View.extend({
     xMark = this.xMark;
     xMarkCoordinate = parseInt(xMark.coordinate);
 
+    //xMark is located on the current tile
     currentTileCoordinate = xMarkCoordinate;
     currentTile = this.tiles[currentTileCoordinate];
 
@@ -147,16 +148,19 @@ APP.Checkerboard = Backbone.View.extend({
 
     //logic to deal with legal and illegal moves
 
+    if ( potentialCoordinate < 1 || potentialCoordinate > totalTiles ) {
+      console.log("illegal move");
+      return;
+    }
+
     if ((this.horizontalTiles === 1 ? false : currentCoordinate < potentialCoordinate)
         && (currentCoordinate + 1) % potentialCoordinate === 0 
         && currentCoordinate % this.horizontalTiles === 0 ) {
       console.log("going further right is an illegal move");
     } else if ((this.horizontalTiles === 1 ? false : currentCoordinate > potentialCoordinate)
-               && (currentCoordinate + 1) % potentialCoordinate === 0
+               && (currentCoordinate - 1) % potentialCoordinate === 0
                && potentialCoordinate % this.horizontalTiles === 0) {
       console.log("going further left is an illegal move");
-    } else if ( potentialCoordinate < 1 || potentialCoordinate > totalTiles ) {
-      console.log("illegal move");
     } else {
       currentTile.subject = null;
       this.assignXmark(potentialTile, xMark);
