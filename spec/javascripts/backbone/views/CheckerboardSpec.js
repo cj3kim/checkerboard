@@ -191,4 +191,73 @@ describe("Checkerboard", function () {
       expect(xMark.coordinate).toBe(firstTile.coordinate);
     });
   });
+
+  describe("#moveXmark", function () {
+    describe("when it is on the first tile of a row", function () {
+      it("can't move further left", function () {
+      });
+
+      it("can move right", function () {
+      });
+    });
+
+    describe("when it is on the last tile of a row", function () {
+      it("can't move further right", function () {
+      });
+
+      it("can move left", function () {
+      });
+    });
+
+    describe("when the checkerboard is only one horizontal line", function () {
+
+      describe("when it is on the first tile", function () {
+        it("can't move further left", function () {
+        });
+
+        it("can move right", function () {
+        });
+      });
+
+      describe("when it is on the last tile", function () {
+        it("can't move further right", function () {
+        });
+
+        it("can move left", function () {
+        });
+      });
+
+      describe("when it is in the middle", function () {
+        it("can move left and right", function () {
+        });
+      });
+
+    });
+
+    describe("when the checkerboard is a vertical line", function () {
+
+      describe("when it is on the first tile", function () {
+        it("can't move further up", function () {
+        });
+
+        it("can move down", function () {
+        });
+      });
+
+      describe("when it is on the last tile", function () {
+        it("can't move further down", function () {
+        });
+
+        it("can move up", function () {
+        });
+      });
+
+      describe("when it is in the middle", function () {
+        it("can move up and down", function () {
+        });
+      });
+    });
+
+
+  });
 });
