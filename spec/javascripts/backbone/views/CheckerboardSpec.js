@@ -194,7 +194,9 @@ describe("Checkerboard", function () {
 
   describe("#moveXmark", function () {
     describe("when the checkerboard dimensions >= 2x2", function () {
-      var moveLeftOneSpace, moveRightOneSpace, moveUpOneSpace, moveDownOneSpace, expectedCoordinate, expectedCoordinateAry;
+      var moveLeftOneSpace, moveRightOneSpace, moveUpOneSpace, 
+          moveDownOneSpace, expectedCoordinate, expectedCoordinateAry,
+          thirdRow, fourthRow;
       beforeEach(function () {
         newCheckerboard = new APP.Checkerboard({horizontalTiles: 10, verticalTiles: 10})
 
@@ -266,7 +268,127 @@ describe("Checkerboard", function () {
         });
       });
 
-      describe("when it is on the last tile of a row", function () {
+      describe("when it is on the last tile of the first row", function () {
+        beforeEach(function () {
+          xMark = newCheckerboard.xMark;
+          xMarkCoordinate = xMark.coordinate;
+          currentTile = newCheckerboard.tiles[xMarkCoordinate];
+          currentTile.subject = null;
+          lastIndex = newCheckerboard.horizontalTiles - 1;
+          lastTile = newCheckerboard.tiles[lastIndex];
+          lastTile.subject = xMark;
+          xMark.coordinate = lastTile.coordinate;
+        });
+
+        it("can't move further right", function () {
+          moveRightOneSpace = 1;
+          expectedCoordinate = 9;
+
+          testCoordinateDoesNotChange(moveRightOneSpace, expectedCoordinate, newCheckerboard);
+        });
+
+        it("can't move up", function () {
+          moveUpOneSpace = -(newCheckerboard.horizontalTiles); // Should be 10 
+          expectedCoordinate = 9;
+          testCoordinateDoesNotChange(moveUpOneSpace, expectedCoordinate, newCheckerboard);
+        });
+
+
+      });
+
+      describe("when it is on the last tile of the third row", function () {
+        beforeEach(function () {
+          xMark = newCheckerboard.xMark;
+          xMarkCoordinate = xMark.coordinate;
+          currentTile = newCheckerboard.tiles[xMarkCoordinate];
+          currentTile.subject = null;
+          thirdRow = 3;
+          lastIndex = (newCheckerboard.horizontalTiles * thirdRow) - 1;
+          lastTile = newCheckerboard.tiles[lastIndex];
+          lastTile.subject = xMark;
+          xMark.coordinate = lastTile.coordinate;
+        });
+
+        it("can't move further right", function () {
+          moveRightOneSpace = 1;
+          expectedCoordinate = 29;
+
+          testCoordinateDoesNotChange(moveRightOneSpace, expectedCoordinate, newCheckerboard);
+        });
+
+        it("can move up", function () {
+          moveUpOneSpace = -(newCheckerboard.horizontalTiles);
+          expectedCoordinateAry = [29,19,9];
+
+          testCoordinateChange(moveUpOneSpace, expectedCoordinateAry, newCheckerboard);
+
+          expectedCoordinateAry = [9, 9, 9];
+
+          testCoordinateChange(moveUpOneSpace, expectedCoordinateAry, newCheckerboard);
+
+        });
+
+        it("can move down", function () {
+          moveDownOneSpace = newCheckerboard.horizontalTiles;
+          expectedCoordinateAry = [29, 39, 49];
+
+          testCoordinateChange(moveDownOneSpace, expectedCoordinateAry, newCheckerboard);
+
+          expectedCoordinateAry = [49, 59, 69];
+
+          testCoordinateChange(moveDownOneSpace, expectedCoordinateAry, newCheckerboard);
+
+        });
+
+
+      });
+
+      describe("when it is on the first tile of the fourth row", function () {
+        beforeEach(function () {
+          xMark = newCheckerboard.xMark;
+          xMarkCoordinate = xMark.coordinate;
+          currentTile = newCheckerboard.tiles[xMarkCoordinate];
+          currentTile.subject = null;
+          fourthRow = 4;
+          subtrahend = 10;
+          firstIndex = (newCheckerboard.horizontalTiles * fourthRow) - subtrahend;
+          firstTile = newCheckerboard.tiles[firstIndex];
+          firstTile.subject = xMark;
+          xMark.coordinate = firstTile.coordinate;
+        });
+
+        it("can't move further left", function () {
+          moveLeftOneSpace = -1;
+          expectedCoordinate = 30;
+
+          testCoordinateDoesNotChange(moveLeftOneSpace, expectedCoordinate, newCheckerboard);
+        });
+
+        it("can move up", function () {
+          moveUpOneSpace = -(newCheckerboard.horizontalTiles);
+          expectedCoordinateAry = [30, 20, 10];
+
+          testCoordinateChange(moveUpOneSpace, expectedCoordinateAry, newCheckerboard);
+
+          expectedCoordinateAry = [10,0,0];
+
+          testCoordinateChange(moveUpOneSpace, expectedCoordinateAry, newCheckerboard);
+
+        });
+
+        it("can move down", function () {
+          moveDownOneSpace = newCheckerboard.horizontalTiles;
+          expectedCoordinateAry = [30, 40, 50, 60];
+
+          testCoordinateChange(moveDownOneSpace, expectedCoordinateAry, newCheckerboard);
+
+          expectedCoordinateAry = [60, 70, 80];
+
+        });
+      });
+
+
+      describe("when it is on the last tile of the last row", function () {
         beforeEach(function () {
           xMark = newCheckerboard.xMark;
           xMarkCoordinate = xMark.coordinate;
@@ -422,6 +544,7 @@ describe("Checkerboard", function () {
       });
     });
 
+    //TODO finish these tests
     describe("when the checkerboard is a vertical line", function () {
 
       describe("when it is on the first tile", function () {
